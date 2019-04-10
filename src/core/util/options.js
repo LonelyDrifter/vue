@@ -397,8 +397,9 @@ export function mergeOptions (
   if (typeof child === 'function') {
     child = child.options
   }
-
+  // 统一props格式
   normalizeProps(child, vm)
+  // 统一directives的格式
   normalizeInject(child, vm)
   normalizeDirectives(child)
 
@@ -416,7 +417,7 @@ export function mergeOptions (
       }
     }
   }
-
+  // 针对不同的键值，采用不同的merge策略
   const options = {}
   let key
   for (key in parent) {
@@ -433,7 +434,7 @@ export function mergeOptions (
   }
   return options
 }
-
+// 上面采取了对不同的field采取不同的策略，Vue提供了一个strats对象，其本身就是一个hook,如果strats有提供特殊的逻辑，就走strats,否则走默认merge逻辑。
 /**
  * Resolve an asset.
  * This function is used because child instances need access
